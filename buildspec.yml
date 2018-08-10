@@ -7,7 +7,7 @@ phases:
       - aws --version      
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)      
       - REPOSITORY_URI=502106296246.dkr.ecr.ap-northeast-2.amazonaws.com/ramgh-rapo
-      - IMAGE_TAG=$(echo$CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)  
+      - IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)  
   build:
     commands:      
       - echo Build started on `date`      
@@ -21,6 +21,6 @@ phases:
       - docker push $REPOSITORY_URI:latest      
       - docker push $REPOSITORY_URI:$IMAGE_TAG      
       - echo Writing image definitions file...      
-      - printf'[{"name":"api-container","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > MyFilename.json
+      - printf'[{"name":"test-container","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > MyFilename.json
 artifacts:    
   files: MyFilename.json
